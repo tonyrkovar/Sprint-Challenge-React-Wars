@@ -3,6 +3,7 @@ import axios from 'axios';
 import StarGrid from './StarGrid';
 import styled from 'styled-components';
 import { Button } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 
 const ParentDiv = styled.div`
@@ -13,20 +14,20 @@ const ParentDiv = styled.div`
 function StarCard(){
     const [starPeople, setStarPeople] = useState([])
     const [whichPage, setWhichPage] = useState(1)
-    function toggleUp(){
-        return (setWhichPage(whichPage +1))
-    }
-    function toggleDown(){
-        return (setWhichPage - 1)
-    }
+    // function toggleUp(e){
+    //     return (setWhichPage(whichPage +1))
+    // }
+    // function toggleDown(e){
+    //     return (e - 1)
+    // }
 
-    // const toggleUp = e => {
-    //     setWhichPage(whichPage + 1)
-    // };
+    const toggleUp = e => {
+        setWhichPage(whichPage + 1)
+    };
 
-    // const toggleDown = e => {
-    //     setWhichPage(whichPage - 1)
-    // };
+    const toggleDown = e => {
+        setWhichPage(whichPage - 1)
+    };
 
 
     useEffect(() => {
@@ -57,8 +58,14 @@ function StarCard(){
             })}
             
         </ParentDiv>
-        <Button color='danger' onClick={toggleDown}>Last Page</Button>{''}
-      <Button color='danger' onClick={toggleUp}>Next Page</Button>{''}
+        <Pagination aria-label="Page navigation example">
+      <PaginationItem>
+          <PaginationLink first href={"https://swapi.co/api/people/?page=2" } />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink first href="https://swapi.co/api/people/?page=2" />
+        </PaginationItem>
+        </Pagination>
         </>
     )
 
