@@ -9,7 +9,7 @@ width: 33%;
 `;
 
 const CardContainer = styled.div`
-    width: 125px;
+    width: 35%;
     height: 250px;
     background: white;
     display: flex;

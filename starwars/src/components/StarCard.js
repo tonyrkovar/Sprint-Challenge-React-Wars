@@ -2,6 +2,8 @@ import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import StarGrid from './StarGrid';
 import styled from 'styled-components';
+import { Button } from 'reactstrap';
+
 
 const ParentDiv = styled.div`
     display: flex;
@@ -10,9 +12,26 @@ const ParentDiv = styled.div`
 
 function StarCard(){
     const [starPeople, setStarPeople] = useState([])
+    const [whichPage, setWhichPage] = useState(1)
+    function toggleUp(){
+        return (setWhichPage(whichPage +1))
+    }
+    function toggleDown(){
+        return (setWhichPage - 1)
+    }
+
+    // const toggleUp = e => {
+    //     setWhichPage(whichPage + 1)
+    // };
+
+    // const toggleDown = e => {
+    //     setWhichPage(whichPage - 1)
+    // };
+
+
     useEffect(() => {
         axios
-            .get('https://swapi.co/api/people')
+            .get(`https://swapi.co/api/people/?page=${whichPage}`)
             .then(response => {
                 const results = response.data.results;
                 console.log(response)
@@ -25,6 +44,7 @@ function StarCard(){
     }, []);
 
     return (
+        <>
         <ParentDiv>
             {starPeople.map((e,i) => {
                 return <StarGrid 
@@ -35,10 +55,11 @@ function StarCard(){
                 films={e.films}
                 />
             })}
-
-
+            
         </ParentDiv>
-        
+        <Button color='danger' onClick={toggleDown}>Last Page</Button>{''}
+      <Button color='danger' onClick={toggleUp}>Next Page</Button>{''}
+        </>
     )
 
 
